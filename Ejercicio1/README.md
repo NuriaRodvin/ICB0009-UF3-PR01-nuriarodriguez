@@ -88,6 +88,45 @@ El mensaje en consola del servidor también se ha mejorado.
 
 ![Servidor mejorado](./Capturas/verificacion-servidor.png)
 
+---
+
+# 🧩 Etapa 2: Aceptación de múltiples clientes
+
+## 🚀 Objetivo
+
+El servidor ahora acepta múltiples clientes utilizando **hilos** para gestionar cada uno sin bloquear al principal.
+
+## 🔄 Cambios implementados
+
+- El servidor usa `Thread` para manejar cada cliente en segundo plano.
+- Cada vez que se conecta un cliente, aparece el mensaje:  
+  `🚗 Gestionando nuevo vehículo desde ...`
+
+---
+
+## 🖼️ Capturas de prueba de múltiples clientes
+
+### 🔹 Servidor ejecutándose en Etapa 2
+
+![Servidor etapa 2 activo](./Capturas/servidor-etapa2-activo.png)
+
+### 🔹 Varios clientes conectados correctamente
+
+![Múltiples clientes](./Capturas/multiples-clientes.png)
+
+---
+
+## ✅ Estado de la Etapa 2
+
+| Elemento                               | Estado     |
+|----------------------------------------|------------|
+| Conexión múltiples clientes            | ✅         |
+| Gestión concurrente con hilos          | ✅         |
+| Mensaje "Gestionando nuevo vehículo..."| ✅         |
+| Capturas de verificación               | ✅         |
+
+---
+
 
 ## 🔗 Navegación
 
