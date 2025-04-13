@@ -5,6 +5,10 @@ using System.Threading;
 
 class Program
 {
+    static int siguienteId = 1;
+    static object lockId = new object();
+    static Random rnd = new Random();
+
     static void Main()
     {
         TcpListener servidor = new TcpListener(IPAddress.Any, 5000);
@@ -17,12 +21,20 @@ class Program
             {
                 TcpClient cliente = servidor.AcceptTcpClient();
 
-                // Se lanza un nuevo hilo para cada cliente
                 Thread hiloCliente = new Thread(() =>
                 {
-                    Console.WriteLine("🚗 Gestionando nuevo vehículo desde " + cliente.Client.RemoteEndPoint?.ToString());
-                    // Aquí podrías añadir más lógica por cliente si se requiere
+                    int idVehiculo;
+                    string direccion;
+
+                    lock (lockId)
+                    {
+                        idVehiculo = siguienteId++;
+                        direccion = rnd.Next(2) == 0 ? "norte" : "sur";
+                    }
+
+                    Console.WriteLine($"🚗 Vehículo ID {idVehiculo} conectado desde {cliente.Client.RemoteEndPoint?.ToString()} y va hacia el {direccion.ToUpper()}");
                 });
+
                 hiloCliente.Start();
             }
             catch (Exception ex)

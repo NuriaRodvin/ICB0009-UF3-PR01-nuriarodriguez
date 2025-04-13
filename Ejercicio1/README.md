@@ -127,6 +127,27 @@ El servidor ahora acepta múltiples clientes utilizando **hilos** para gestionar
 
 ---
 
+# 🧩 Etapa 3: Asignación de ID único y dirección aleatoria
+
+## 🚀 Objetivo
+
+El servidor asigna un **ID único** y una **dirección aleatoria (NORTE/SUR)** a cada cliente que se conecta.
+
+## 🧠 Conceptos aplicados
+
+- Uso de una variable `siguienteId` autoincremental.
+- Uso de `lock` para proteger el acceso desde múltiples hilos.
+- Uso de `Random` para asignar una dirección al azar.
+
+---
+
+## 🖼️ Captura de prueba
+
+### 🔹 Identificación de vehículos conectados
+
+![ID y dirección](./Capturas/asignacion-id-vehiculos.png)
+
+---
 
 ## 🔗 Navegación
 
