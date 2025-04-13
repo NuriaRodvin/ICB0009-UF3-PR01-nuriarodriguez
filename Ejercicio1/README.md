@@ -148,6 +148,41 @@ El servidor asigna un **ID único** y una **dirección aleatoria (NORTE/SUR)** a
 ![ID y dirección](./Capturas/asignacion-id-vehiculos.png)
 
 ---
+# 🧩 Etapa 4: Obtener NetworkStream
+
+## 🚀 Objetivo
+
+Obtener el `NetworkStream` tanto en el servidor como en el cliente después de establecer la conexión.
+
+## 🔄 Cambios implementados
+
+- En el servidor, tras aceptar un cliente, se obtiene el stream: `cliente.GetStream()`.
+- En el cliente, tras conectarse, también se obtiene el stream.
+- Se muestra un mensaje de confirmación en consola.
+
+---
+
+## 🖼️ Capturas
+
+### 🔹 NetworkStream en el Servidor
+
+![Stream servidor](./Capturas/stream-servidor.png)
+
+### 🔹 NetworkStream en el Cliente
+
+![Stream cliente](./Capturas/stream-cliente.png)
+
+---
+
+## ✅ Estado de la Etapa 4
+
+| Elemento                      | Estado     |
+|-------------------------------|------------|
+| NetworkStream en servidor     | ✅         |
+| NetworkStream en cliente      | ✅         |
+| Capturas añadidas             | ✅         |
+
+---
 
 ## 🔗 Navegación
 

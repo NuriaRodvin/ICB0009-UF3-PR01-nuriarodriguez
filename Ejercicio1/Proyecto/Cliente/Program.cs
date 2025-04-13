@@ -10,6 +10,9 @@ class Program
             TcpClient cliente = new TcpClient("127.0.0.1", 5000);
             Console.WriteLine("🔌 Cliente conectado desde " + cliente.Client.RemoteEndPoint?.ToString());
 
+            // Obtener el NetworkStream
+            NetworkStream stream = cliente.GetStream();
+            Console.WriteLine("📡 Stream de red abierto en el cliente.");
         }
         catch (Exception ex)
         {
@@ -17,3 +20,4 @@ class Program
         }
     }
 }
+

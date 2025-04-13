@@ -33,6 +33,10 @@ class Program
                     }
 
                     Console.WriteLine($"🚗 Vehículo ID {idVehiculo} conectado desde {cliente.Client.RemoteEndPoint?.ToString()} y va hacia el {direccion.ToUpper()}");
+
+                    // Obtener el NetworkStream del cliente
+                    NetworkStream stream = cliente.GetStream();
+                    Console.WriteLine($"📡 Stream de red abierto para el vehículo ID {idVehiculo}.");
                 });
 
                 hiloCliente.Start();
@@ -44,5 +48,6 @@ class Program
         }
     }
 }
+
 
 
