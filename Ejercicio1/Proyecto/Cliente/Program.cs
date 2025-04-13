@@ -13,7 +13,7 @@ class Program
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Error al conectar: " + ex.Message);
+            Console.WriteLine("❌ No se pudo conectar al servidor. Verifica que esté en ejecución. Detalles: " + ex.Message);
         }
     }
 }
