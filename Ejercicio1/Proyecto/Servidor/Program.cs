@@ -8,7 +8,8 @@ class Program
     {
         TcpListener servidor = new TcpListener(IPAddress.Any, 5000);
         servidor.Start();
-        Console.WriteLine("Servidor iniciado. Esperando conexiones...");
+        Console.WriteLine("🟢 Servidor en espera de conexiones...");
+
 
         while (true)
         {
