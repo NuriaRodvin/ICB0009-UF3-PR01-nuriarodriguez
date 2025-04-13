@@ -29,7 +29,7 @@ Ejercicio1/
 
 El servidor se ejecuta correctamente y espera conexiones:
 
-![Servidor](./capturas/servidor-iniciado.png)
+![Servidor](./Capturas/servidor-iniciado.png)
 
 ---
 
@@ -37,7 +37,7 @@ El servidor se ejecuta correctamente y espera conexiones:
 
 Una terminal para el servidor y otra para el cliente. Se comprueba el entorno antes de lanzar el cliente:
 
-![Terminales](./capturas/2-terminales.png)
+![Terminales](./Capturas/2-terminales.png)
 
 ---
 
@@ -45,7 +45,7 @@ Una terminal para el servidor y otra para el cliente. Se comprueba el entorno an
 
 El cliente intenta conectarse y lo consigue:
 
-![Cliente](./capturas/cliente-ok.png)
+![Cliente](./Capturas/cliente-ok.png)
 
 ---
 
@@ -53,7 +53,7 @@ El cliente intenta conectarse y lo consigue:
 
 ¡Cliente conectado! El servidor muestra el mensaje indicando la IP del cliente:
 
-![Final](./capturas/final-conexion.png)
+![Final](./Capturas/final-conexion.png)
 
 ---
 
@@ -74,6 +74,20 @@ El cliente intenta conectarse y lo consigue:
 | Documentación y capturas       | ✅         |
 
 ---
+
+
+## ✅ Verificación de mejoras aplicadas
+
+### 🔹 Cliente tras mejora de mensaje
+Se ha mejorado el mensaje de error para que sea más claro si la conexión falla.
+
+![Cliente mejorado](./Capturas/verificacion-cliente.png)
+
+### 🔹 Servidor tras mejora visual
+El mensaje en consola del servidor también se ha mejorado.
+
+![Servidor mejorado](./Capturas/verificacion-servidor.png)
+
 
 ## 🔗 Navegación
 
