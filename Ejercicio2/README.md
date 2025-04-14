@@ -194,19 +194,19 @@ Simular el movimiento del vehículo por la carretera desde el cliente, enviando 
 
 ## 📸 Capturas de pantalla
 
-A continuación se muestran las evidencias del funcionamiento de esta etapa:
+A continuación se muestran las evidencias visuales del funcionamiento de esta etapa:
 
-1. Cliente crea y mueve vehículo
-   ![cliente_moviendo_vehiculo](./Ejercicio2/Capturas/cliente_moviendo_vehiculo.png)
+1. Cliente crea y mueve vehículo  
+   ![Cliente moviendo vehículo](Capturas/cliente_movimiento_vehiculo.png)
 
-2. Servidor muestra actualizaciones recibidas
-   ![servidor_actualizando_estado](./Ejercicio2/Capturas/servidor_actualizando_estado.png)
+2. Servidor muestra actualizaciones recibidas  
+   ![Servidor actualizando estado](Capturas/servidor_recibe_actualizaciones.png)
 
-3. Cliente muestra final del recorrido
-   ![cliente_fin_recorrido](./Ejercicio2/Capturas/cliente_fin_recorrido.png)
+3. Cliente muestra final del recorrido  
+   ![Cliente fin recorrido](Capturas/cliente_finaliza_recorrido.png)
 
-4. Servidor detecta vehículo finalizado
-   ![servidor_fin_recorrido](./Ejercicio2/Capturas/servidor_fin_recorrido.png)
+4. Servidor detecta vehículo finalizado  
+   ![Servidor fin recorrido](Capturas/servidor_finaliza_vehiculo.png)
 
 ---
 
