@@ -115,37 +115,30 @@ El cliente debe ser capaz de crear un objeto `Vehiculo`, enviarlo al servidor y 
 
 A continuación se muestran las evidencias visuales del funcionamiento del sistema cliente-servidor:
 
-1. Cliente conectado al servidor
 
-![Cliente conectado al servidor](./Ejercicio2/Capturas/cliente_conectado.png)
+1. Cliente conectado al servidor
+![cliente_conectado](./Capturas/carretera_mostrada_cliente.png)
 
 2. Servidor esperando cliente
-
-![Servidor esperando cliente](./Ejercicio2/Capturas/servidor_esperando_cliente.png)
+![servidor_esperando_cliente](./Capturas/servidor_esperando.png)
 
 3. El servidor recibe un vehículo
-
-![El servidor recibe un vehículo](./Ejercicio2/Capturas/servidor_recibe_vehiculo.png)
+![servidor_recibe_vehiculo](./Capturas/servidor_recibe_vehiculo.png)
 
 4. Carretera mostrada por el servidor
-
-![Carretera mostrada por el servidor](./Ejercicio2/Capturas/carretera_mostrada_servidor.png)
+![carretera_mostrada_servidor](./Capturas/carretera_mostrada_servidor.png)
 
 5. Carretera recibida por el cliente
-
-![Carretera recibida por el cliente](./Ejercicio2/Capturas/carretera_mostrada_cliente.png)
+![carretera_mostrada_cliente](./Capturas/carretera_mostrada_cliente2.png)
 
 6. Cliente conectándose varias veces (1)
-
-![Cliente conectándose varias veces (1)](./Ejercicio2/Capturas/carretera_mostrada_cliente2.png)
+![cliente_multiple_1](./Capturas/carretera_mostrada_cliente3.png)
 
 7. Cliente conectándose varias veces (2)
-
-![Cliente conectándose varias veces (2)](./Ejercicio2/Capturas/carretera_mostrada_cliente3.png)
+![cliente_multiple_2](./Capturas/carretera_mostrada_cliente3.png)
 
 8. Servidor con múltiples vehículos
-
-![Servidor con múltiples vehículos](./Ejercicio2/Capturas/carretera_mostrada_servidor2.png)
+![servidor_multiple](./Capturas/cliente_multiple_conexiones.png)
 
 
 ---
