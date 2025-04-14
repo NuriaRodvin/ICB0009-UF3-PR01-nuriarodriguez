@@ -32,11 +32,30 @@ class Program
                         direccion = rnd.Next(2) == 0 ? "norte" : "sur";
                     }
 
-                    Console.WriteLine($"🚗 Vehículo ID {idVehiculo} conectado desde {cliente.Client.RemoteEndPoint?.ToString()} y va hacia el {direccion.ToUpper()}");
+                    Console.WriteLine($"🚗 Vehículo ID {idVehiculo} conectado desde {cliente.Client.RemoteEndPoint} y va hacia el {direccion.ToUpper()}");
 
-                    // Obtener el NetworkStream del cliente
                     NetworkStream stream = cliente.GetStream();
                     Console.WriteLine($"📡 Stream de red abierto para el vehículo ID {idVehiculo}.");
+
+                    // Handshake
+                    string mensajeInicio = NetworkStreamClass.LeerMensajeNetworkStream(stream);
+                    if (mensajeInicio == "INICIO")
+                    {
+                        Console.WriteLine("🤝 Inicio de handshake recibido.");
+                        NetworkStreamClass.EscribirMensajeNetworkStream(stream, idVehiculo.ToString());
+
+                        string confirmacion = NetworkStreamClass.LeerMensajeNetworkStream(stream);
+                        if (confirmacion == idVehiculo.ToString())
+                        {
+                            Console.WriteLine($"✅ Cliente {idVehiculo} ha confirmado su ID correctamente.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("⚠️ Confirmación de ID incorrecta.");
+                        }
+                    }
+
+                    cliente.Close();
                 });
 
                 hiloCliente.Start();
@@ -48,6 +67,7 @@ class Program
         }
     }
 }
+
 
 
 

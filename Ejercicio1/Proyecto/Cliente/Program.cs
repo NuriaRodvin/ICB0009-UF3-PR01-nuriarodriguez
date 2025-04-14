@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
 
-
 class Program
 {
     static void Main()
@@ -9,11 +8,21 @@ class Program
         try
         {
             TcpClient cliente = new TcpClient("127.0.0.1", 5000);
-            Console.WriteLine("🔌 Cliente conectado desde " + cliente.Client.RemoteEndPoint?.ToString());
+            Console.WriteLine("🔌 Cliente conectado desde " + cliente.Client.RemoteEndPoint);
 
-            // Obtener el NetworkStream
             NetworkStream stream = cliente.GetStream();
             Console.WriteLine("📡 Stream de red abierto en el cliente.");
+
+            // Handshake
+            NetworkStreamClass.EscribirMensajeNetworkStream(stream, "INICIO");
+
+            string idRecibido = NetworkStreamClass.LeerMensajeNetworkStream(stream);
+            Console.WriteLine("🆔 ID recibido del servidor: " + idRecibido);
+
+            NetworkStreamClass.EscribirMensajeNetworkStream(stream, idRecibido);
+            Console.WriteLine("✅ ID confirmado al servidor.");
+
+            cliente.Close();
         }
         catch (Exception ex)
         {
@@ -21,4 +30,5 @@ class Program
         }
     }
 }
+
 

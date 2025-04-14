@@ -225,6 +225,45 @@ Ejercicio1/
 | Compilación sin errores                      | ✅         |
 
 ---
+# 🧩 Etapa 6: Handshake entre cliente y servidor
+
+## 🤝 Objetivo del Handshake
+
+Antes de que el cliente comience su ejecución, debe establecer un **handshake** con el servidor para recibir su ID asignado.
+
+## 🔄 Flujo del Handshake
+
+1. El cliente envía un mensaje `"INICIO"` al servidor.
+2. El servidor responde con el **ID del vehículo**.
+3. El cliente confirma enviando el mismo ID de vuelta al servidor.
+4. El servidor muestra el mensaje indicando que el cliente ha sido verificado correctamente.
+
+---
+
+## 🖼️ Capturas del Handshake funcionando
+
+### 🔹 Servidor mostrando el proceso de handshake
+
+![Servidor Handshake](./Capturas/servidor-handshake.png)
+
+### 🔹 Cliente mostrando el intercambio de mensajes
+
+![Cliente Handshake](./Capturas/cliente-handshake.png)
+
+---
+
+## ✅ Estado de la Etapa 6
+
+| Elemento                             | Estado     |
+|--------------------------------------|------------|
+| Cliente envía mensaje de inicio      | ✅         |
+| Servidor responde con ID             | ✅         |
+| Cliente confirma ID recibido         | ✅         |
+| Mensajes de verificación en consola  | ✅         |
+| Capturas guardadas                   | ✅         |
+
+
+---
 
 ## 🔗 Navegación
 
