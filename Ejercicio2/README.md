@@ -196,17 +196,75 @@ Simular el movimiento del vehículo por la carretera desde el cliente, enviando 
 
 A continuación se muestran las evidencias visuales del funcionamiento de esta etapa:
 
-1. Cliente crea y mueve vehículo  
+1. Cliente crea y mueve vehículo
    ![Cliente moviendo vehículo](Capturas/cliente_movimiento_vehiculo.png)
 
-2. Servidor muestra actualizaciones recibidas  
+2. Servidor muestra actualizaciones recibidas
    ![Servidor actualizando estado](Capturas/servidor_recibe_actualizaciones.png)
 
-3. Cliente muestra final del recorrido  
+3. Cliente muestra final del recorrido
    ![Cliente fin recorrido](Capturas/cliente_finaliza_recorrido.png)
 
-4. Servidor detecta vehículo finalizado  
+4. Servidor detecta vehículo finalizado
    ![Servidor fin recorrido](Capturas/servidor_finaliza_vehiculo.png)
+
+---
+
+# 🔁 Etapas 4 y 5: Enviar y recibir la información de la carretera
+
+## ✅ Objetivo
+
+El objetivo de estas etapas es que **todos los clientes** puedan ver la **carretera completa** con todos los vehículos en movimiento, no solo el suyo propio.
+
+- En la **Etapa 4**, el servidor debe **enviar la carretera actualizada** a todos los clientes cada vez que reciba una actualización.
+- En la **Etapa 5**, los clientes deben tener **un hilo de escucha permanente** que reciba esos datos del servidor y los muestre por consola.
+
+---
+
+## ⚙️ Cambios realizados
+
+### 🖥️ Servidor
+
+- Se mantiene una **lista de clientes conectados**.
+- Se envía la carretera actualizada a **todos los clientes** cada vez que se recibe un nuevo dato.
+- Se utiliza un método llamado `EnviarCarreteraATodos()`.
+
+### 👨‍💻 Cliente
+
+- Se crea un **hilo adicional** que permanece escuchando al servidor.
+- Este hilo recibe el objeto `Carretera` y muestra la información por consola.
+- Ambos hilos (mover vehículo y escuchar al servidor) funcionan **concurrentemente**.
+
+---
+
+## ✅ Estado de las Etapas 4 y 5
+
+| Elemento                                        | Estado |
+|-------------------------------------------------|--------|
+| Lista de clientes en servidor                   | ✅     |
+| Envío de carretera a todos los clientes         | ✅     |
+| Hilo de escucha en el cliente                   | ✅     |
+| Visualización concurrente en el cliente         | ✅     |
+| Pruebas con múltiples vehículos y clientes      | ✅     |
+| Capturas generadas                              | ✅     |
+
+---
+
+## 📸 Capturas de pantalla
+
+A continuación se muestran las evidencias visuales del funcionamiento de estas etapas:
+
+1. Servidor esperando vehículos y mostrándolos
+   ![Servidor esperando vehículos](./Capturas/servidor_esperando_vehiculos_etapa4_5.png)
+
+2. Cliente recibiendo actualizaciones de la carretera
+   ![Cliente recibe actualizaciones](./Capturas/cliente_actualizaciones_y_fin_etapa4_5.png)
+
+3. Cliente muestra final del recorrido
+   ![Cliente fin recorrido](./Capturas/cliente_finaliza_recorrido_etapa4_5.png)
+
+4. Servidor detecta que el vehículo ha finalizado su recorrido
+   ![Servidor fin vehículo](./Capturas/servidor_finaliza_vehiculo_etapa4_5.png)
 
 ---
 

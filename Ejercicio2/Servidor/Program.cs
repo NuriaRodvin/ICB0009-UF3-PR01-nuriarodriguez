@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using Program;
 
 class ProgramServidor
 {
+    static List<Cliente> clientesConectados = new List<Cliente>();
+    static Carretera carretera = new Carretera();
+    static object lockObject = new object();
+
     static void Main(string[] args)
     {
-        // Crear carretera vacía
-        Carretera carretera = new Carretera();
-
-        // Crear listener en el puerto 5000
         TcpListener servidor = new TcpListener(IPAddress.Any, 5000);
         servidor.Start();
         Console.WriteLine("🚦 Servidor escuchando en el puerto 5000...");
@@ -18,34 +20,76 @@ class ProgramServidor
         while (true)
         {
             Console.WriteLine("📡 Esperando conexión de un cliente...");
-            TcpClient cliente = servidor.AcceptTcpClient();
-            Console.WriteLine("✅ Cliente conectado.");
+            TcpClient tcpCliente = servidor.AcceptTcpClient();
+            Console.WriteLine("✅ Cliente conectado. Gestionando nuevo vehículo...");
 
-            NetworkStream ns = cliente.GetStream();
+            // Crear hilo por cliente
+            Thread hiloCliente = new Thread(() => GestionarCliente(tcpCliente));
+            hiloCliente.Start();
+        }
+    }
 
-            Vehiculo v;
+    static void GestionarCliente(TcpClient tcpCliente)
+    {
+        NetworkStream ns = tcpCliente.GetStream();
 
-            // Recibir actualizaciones hasta que el vehículo termine
+        // ✅ Crear cliente con ID y Stream
+        int id = int.Parse(DateTime.Now.ToString("HHmmssfff"));
+        Cliente cliente = new Cliente(id, ns);
+
+        lock (clientesConectados)
+        {
+            clientesConectados.Add(cliente);
+        }
+
+        try
+        {
             while (true)
             {
-                v = NetworkStreamClass.LeerDatosVehiculoNS(ns);
-                if (v == null) break;
+                Vehiculo vehiculo = NetworkStreamClass.LeerDatosVehiculoNS(ns);
+                if (vehiculo == null) break;
 
-                carretera.ActualizarVehiculo(v);
+                lock (lockObject)
+                {
+                    carretera.ActualizarVehiculo(vehiculo);
+                }
 
-                Console.WriteLine($"🛠️ Actualización recibida: ID={v.Id}, Pos={v.Pos}, Acabado={v.Acabado}");
+                Console.WriteLine("🛣️ Estado de la carretera actualizado:");
                 carretera.MostrarCarretera();
 
-                if (v.Acabado)
+                EnviarCarreteraATodos();
+                if (vehiculo.Acabado) break;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("❌ Error con cliente: " + ex.Message);
+        }
+
+        lock (clientesConectados)
+        {
+            clientesConectados.Remove(cliente);
+        }
+
+        tcpCliente.Close();
+        Console.WriteLine("🔌 Cliente desconectado.");
+    }
+
+    static void EnviarCarreteraATodos()
+    {
+        lock (clientesConectados)
+        {
+            foreach (Cliente c in clientesConectados)
+            {
+                try
                 {
-                    Console.WriteLine($"✅ Vehículo {v.Id} ha finalizado su recorrido.");
-                    break;
+                    NetworkStreamClass.EscribirDatosCarreteraNS(c.Stream, carretera);
+                }
+                catch
+                {
+                    Console.WriteLine("⚠️ Error enviando carretera a un cliente");
                 }
             }
-
-            // Cerrar conexión con este cliente
-            cliente.Close();
-            Console.WriteLine("🔌 Cliente desconectado.\n");
         }
     }
 }
