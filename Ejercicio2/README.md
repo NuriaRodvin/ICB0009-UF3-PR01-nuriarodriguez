@@ -50,6 +50,43 @@ Representa el estado global de la simulación.
 
 ---
 
+# 🧩 Etapa 1: Programación de los métodos de la clase NetworkStreamClass
+
+## ✅ Objetivo
+
+Implementar los métodos que permiten **enviar y recibir objetos de tipo `Vehiculo` y `Carretera`** a través de un `NetworkStream`.
+
+---
+
+## 🧠 Métodos implementados
+
+### 🚗 Vehiculo
+- `EscribirDatosVehiculoNS(NetworkStream NS, Vehiculo V)`
+- `LeerDatosVehiculoNS(NetworkStream NS)`
+
+### 🛣️ Carretera
+- `EscribirDatosCarreteraNS(NetworkStream NS, Carretera C)`
+- `LeerDatosCarreteraNS(NetworkStream NS)`
+
+---
+
+## 🔄 Funcionamiento
+
+- Los métodos de escritura (`Escribir...`) **serializan** el objeto y lo envían como bytes.
+- Los métodos de lectura (`Leer...`) **reciben bytes** y los **deserializan** para reconstruir el objeto.
+
+---
+
+## ✅ Estado de la Etapa 1
+
+| Elemento                              | Estado |
+|---------------------------------------|--------|
+| Métodos de Vehiculo implementados     | ✅     |
+| Métodos de Carretera implementados    | ✅     |
+| Uso de Serialización/Deserialización  | ✅     |
+
+---
+
 ## 🔗 Navegación
 
 [⬅️ Volver al README general](../README.md)
