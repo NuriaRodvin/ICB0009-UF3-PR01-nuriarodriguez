@@ -2,12 +2,15 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Collections.Generic;
 
 class Program
 {
     static int siguienteId = 1;
     static object lockId = new object();
+    static object lockLista = new object();
     static Random rnd = new Random();
+    static List<Cliente> clientesConectados = new List<Cliente>();
 
     static void Main()
     {
@@ -48,6 +51,12 @@ class Program
                         if (confirmacion == idVehiculo.ToString())
                         {
                             Console.WriteLine($"✅ Cliente {idVehiculo} ha confirmado su ID correctamente.");
+
+                            lock (lockLista)
+                            {
+                                clientesConectados.Add(new Cliente(idVehiculo, stream));
+                                Console.WriteLine($"📋 Total de vehículos conectados: {clientesConectados.Count}");
+                            }
                         }
                         else
                         {
@@ -67,6 +76,7 @@ class Program
         }
     }
 }
+
 
 
 

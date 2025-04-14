@@ -262,9 +262,44 @@ Antes de que el cliente comience su ejecución, debe establecer un **handshake**
 | Mensajes de verificación en consola  | ✅         |
 | Capturas guardadas                   | ✅         |
 
+---
+
+# 🧩 Etapa 7: Almacenar información de clientes conectados
+
+## 🚀 Objetivo
+
+Gestionar una lista de vehículos conectados en el servidor, almacenando su **ID** y su **NetworkStream**.
+
+## 🧠 Cambios realizados
+
+- Se crea una clase `Cliente` que almacena el `id` y el `NetworkStream`.
+- En el servidor, cada cliente nuevo se añade a una lista de tipo `List<Cliente>`.
+- Se muestra el número total de clientes conectados (`clientes.Count`).
 
 ---
 
+## 🖼️ Capturas de verificación
+
+### 🔹 Cliente conectado y recibiendo su ID
+
+![Cliente handshake completo](./Capturas/etapa7-cliente-id-confirmado.png)
+
+### 🔹 Servidor con un cliente gestionado
+
+![Servidor con un cliente](./Capturas/etapa7-servidor-uno.png)
+
+---
+
+## ✅ Estado de la Etapa 7
+
+| Elemento                                | Estado     |
+|-----------------------------------------|------------|
+| Clase Cliente creada                    | ✅         |
+| Lista de clientes implementada          | ✅         |
+| Conteo de clientes funcionando          | ✅         |
+| Capturas de verificación                | ✅         |
+
+---
 ## 🔗 Navegación
 
 [⬅️ Volver al README general](../README.md)
