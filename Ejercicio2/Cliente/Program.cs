@@ -9,10 +9,13 @@ class ProgramCliente
     {
         try
         {
+            // Crear conexión al servidor
             TcpClient cliente = new TcpClient("127.0.0.1", 5000);
             Console.WriteLine("🔗 Conectado al servidor");
+
             NetworkStream ns = cliente.GetStream();
 
+            // Crear vehículo
             Vehiculo v = new Vehiculo()
             {
                 Id = int.Parse(DateTime.Now.ToString("HHmmssfff")),
@@ -25,29 +28,36 @@ class ProgramCliente
 
             Console.WriteLine($"🚗 Vehículo creado: ID={v.Id}, Vel={v.Velocidad}, Dir={v.Direccion}");
 
-            // Hilo para recibir actualizaciones de la carretera
-            Thread hiloLectura = new Thread(() =>
+            // Hilo para recibir actualizaciones de carretera
+            bool seguirEscuchando = true;
+            Thread hiloEscucha = new Thread(() =>
             {
                 try
                 {
-                    while (!v.Acabado)
+                    while (seguirEscuchando)
                     {
-                        Carretera c = NetworkStreamClass.LeerDatosCarreteraNS(ns);
-                        if (c != null)
+                        Carretera carretera = NetworkStreamClass.LeerDatosCarreteraNS(ns);
+                        if (carretera != null)
                         {
-                            Console.WriteLine("\n📡 Actualización de la carretera:");
-                            c.MostrarCarretera();
+                            Console.WriteLine("🛣️ Actualización de la carretera:");
+                            carretera.MostrarCarretera();
+
+                            if (carretera.Ganador != null)
+                                Console.WriteLine($"🏁 El ganador es el vehículo {carretera.Ganador.Id}");
+                            else
+                                Console.WriteLine("⏳ Aún no hay ganador...");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("⚠️ Error al leer datos del servidor: " + ex.Message);
+                    Console.WriteLine("❌ Error en hilo escucha: " + ex.Message);
                 }
             });
-            hiloLectura.Start();
 
-            // Bucle de movimiento
+            hiloEscucha.Start();
+
+            // Bucle de movimiento del vehículo
             while (v.Pos <= 100)
             {
                 NetworkStreamClass.EscribirDatosVehiculoNS(ns, v);
@@ -65,7 +75,10 @@ class ProgramCliente
                 }
             }
 
-            hiloLectura.Join();
+            // Finalizar hilo escucha
+            seguirEscuchando = false;
+            Thread.Sleep(500); // Permitir cierre del hilo antes de cerrar conexión
+
             cliente.Close();
             Console.WriteLine("🔌 Conexión cerrada");
         }

@@ -254,17 +254,80 @@ El objetivo de estas etapas es que **todos los clientes** puedan ver la **carret
 
 A continuación se muestran las evidencias visuales del funcionamiento de estas etapas:
 
-1. Servidor esperando vehículos y mostrándolos  
+1. Servidor esperando vehículos y mostrándolos
    ![Servidor esperando vehículos](Capturas/servidor_esperando_vehiculos_etapa4_5.png)
 
-2. Cliente recibiendo actualizaciones de la carretera  
+2. Cliente recibiendo actualizaciones de la carretera
    ![Cliente recibe carretera](Capturas/cliente_actualizaciones_y_fin_etapa4_5.png)
 
-3. Cliente muestra final del recorrido  
+3. Cliente muestra final del recorrido
    ![Cliente fin recorrido](Capturas/cliente_muestra_fin_recorrido.png)
 
-4. Servidor detecta que el vehículo ha finalizado su recorrido  
+4. Servidor detecta que el vehículo ha finalizado su recorrido
    ![Servidor fin recorrido](Capturas/servidor_finaliza_vehiculo_etapa4_5.png)
+
+---
+
+# 🏁 Etapa Extra: Mostrar el vehículo ganador
+
+## ✅ Objetivo
+
+Detectar qué vehículo ha ganado la carrera (el primero en llegar a la posición 100) y mostrarlo tanto en el **servidor** como en todos los **clientes conectados**.
+
+---
+
+## 🧠 Explicación técnica
+
+### 🖥️ Servidor
+
+- Se ha añadido una nueva propiedad en la clase `Carretera`:
+  ```csharp
+  public int? Ganador { get; set; }
+  ```
+- Al recibir un vehículo marcado como `Acabado`, el servidor verifica si aún no se ha asignado un ganador. Si no hay uno, guarda el ID del primer vehículo finalizado.
+- Esta información se envía en el objeto `Carretera` a todos los clientes.
+
+### 👨‍💻 Cliente
+
+- El hilo de escucha permanente comprueba si el campo `Ganador` de la carretera tiene valor.
+- Si lo tiene, muestra un mensaje visual indicando quién ha sido el ganador 🏆.
+
+---
+
+## 🛠️ Cambios clave en el código
+
+- Clase `Carretera.cs`: añadida propiedad `Ganador` y actualización en `ActualizarVehiculo`.
+- `ProgramServidor.cs`: detección del primer vehículo acabado y actualización de la carretera.
+- `ProgramCliente.cs`: el hilo de escucha comprueba si ya hay un ganador y lo muestra por consola.
+
+---
+
+## 📸 Capturas de pantalla
+
+1. Cliente avanza y termina el recorrido
+   ![Cliente avanza](./Capturas/cliente_muestra_fin_recorrido.png)
+
+2. Servidor muestra que hay actualizaciones pero aún no hay ganador
+   ![Servidor esperando final](./Capturas/servidor_esperando_vehiculos_etapa4_5.png)
+
+3. Cliente sigue sin ver ganador (antes de que otro termine)
+   ![Cliente sin ganador](./Capturas/cliente_actualizaciones_y_fin_etapa4_5.png)
+
+4. Cliente muestra al ganador 🏆
+   ![Ganador detectado](./Capturas/cliente_muestra_ganador_etapa_extra.png)
+
+---
+
+## ✅ Estado de la Etapa Extra
+
+| Elemento                                        | Estado |
+|-------------------------------------------------|--------|
+| Campo `Ganador` en clase `Carretera`            | ✅     |
+| Detección de primer vehículo finalizado         | ✅     |
+| Envío del ganador desde el servidor             | ✅     |
+| Recepción del ganador en el cliente             | ✅     |
+| Visualización clara del vehículo ganador        | ✅     |
+| Capturas generadas y enlazadas al README        | ✅     |
 
 ---
 

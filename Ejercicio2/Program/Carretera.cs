@@ -9,6 +9,9 @@ public class Carretera
     public List<Vehiculo> VehiculosEnCarretera { get; set; } = new List<Vehiculo>();
     public int NumVehiculosEnCarrera { get; set; } = 0;
 
+    // NUEVO: Ganador
+    public Vehiculo? Ganador { get; set; } = null;
+
     public byte[] SerializarCarretera()
     {
         string json = JsonSerializer.Serialize(this);
@@ -45,6 +48,11 @@ public class Carretera
         {
             string barra = GenerarBarra(v.Pos);
             Console.WriteLine($"[{v.Direccion}] Vehículo #{v.Id}: {barra} (km {v.Pos} - {(v.Parado ? "Esperando" : (v.Acabado ? "Finalizado" : "Circulando"))})");
+        }
+
+        if (Ganador != null)
+        {
+            Console.WriteLine($"🏁 Ganador: Vehículo {Ganador.Id} 🏆");
         }
     }
 

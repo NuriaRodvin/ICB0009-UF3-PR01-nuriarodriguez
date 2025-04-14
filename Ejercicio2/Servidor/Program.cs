@@ -23,7 +23,6 @@ class ProgramServidor
             TcpClient tcpCliente = servidor.AcceptTcpClient();
             Console.WriteLine("✅ Cliente conectado. Gestionando nuevo vehículo...");
 
-            // Crear hilo por cliente
             Thread hiloCliente = new Thread(() => GestionarCliente(tcpCliente));
             hiloCliente.Start();
         }
@@ -32,10 +31,7 @@ class ProgramServidor
     static void GestionarCliente(TcpClient tcpCliente)
     {
         NetworkStream ns = tcpCliente.GetStream();
-
-        // ✅ Crear cliente con ID y Stream
-        int id = int.Parse(DateTime.Now.ToString("HHmmssfff"));
-        Cliente cliente = new Cliente(id, ns);
+        Cliente cliente = new Cliente(Environment.TickCount, ns);  // <- se corrige constructor
 
         lock (clientesConectados)
         {
@@ -52,12 +48,19 @@ class ProgramServidor
                 lock (lockObject)
                 {
                     carretera.ActualizarVehiculo(vehiculo);
+
+                    // ✅ ASIGNAR GANADOR si aún no hay uno
+                    if (vehiculo.Acabado && carretera.Ganador == null)
+                    {
+                        carretera.Ganador = vehiculo;
+                    }
                 }
 
                 Console.WriteLine("🛣️ Estado de la carretera actualizado:");
                 carretera.MostrarCarretera();
 
                 EnviarCarreteraATodos();
+
                 if (vehiculo.Acabado) break;
             }
         }
