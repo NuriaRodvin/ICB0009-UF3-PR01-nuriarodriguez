@@ -1,5 +1,6 @@
-﻿﻿using System;
+﻿using System;
 using System.Net.Sockets;
+using System.Threading;
 using Program;
 
 class ProgramCliente
@@ -17,24 +18,33 @@ class ProgramCliente
             // Crear vehículo
             Vehiculo v = new Vehiculo()
             {
-                Id = int.Parse(DateTime.Now.ToString("HHmmssfff")), // HoraMinutoSegundoMilisegundo
+                Id = int.Parse(DateTime.Now.ToString("HHmmssfff")),
                 Pos = 0,
-                Velocidad = 0,
+                Velocidad = new Random().Next(100, 500),
                 Acabado = false,
                 Direccion = "Norte", // o "Sur"
                 Parado = false
             };
 
-            Console.WriteLine($"🚗 Enviando vehículo: ID={v.Id}, Dir={v.Direccion}");
+            Console.WriteLine($"🚗 Vehículo creado: ID={v.Id}, Vel={v.Velocidad}, Dir={v.Direccion}");
 
-            // Enviar al servidor
-            NetworkStreamClass.EscribirDatosVehiculoNS(ns, v);
+            // Bucle de movimiento
+            while (v.Pos <= 100)
+            {
+                NetworkStreamClass.EscribirDatosVehiculoNS(ns, v);
+                Thread.Sleep(v.Velocidad);
+                v.Pos++;
 
-            // Leer respuesta (opcional: carretera actualizada)
-            Carretera c = NetworkStreamClass.LeerDatosCarreteraNS(ns);
+                Console.WriteLine($"➡️ Avanzando: ID={v.Id}, Pos={v.Pos}");
 
-            Console.WriteLine("🛣️ Carretera recibida:");
-            c.MostrarCarretera();
+                if (v.Pos >= 100)
+                {
+                    v.Acabado = true;
+                    NetworkStreamClass.EscribirDatosVehiculoNS(ns, v);
+                    Console.WriteLine($"✅ Vehículo {v.Id} ha terminado su recorrido.");
+                    break;
+                }
+            }
 
             cliente.Close();
             Console.WriteLine("🔌 Conexión cerrada");

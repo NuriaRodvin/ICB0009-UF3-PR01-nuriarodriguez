@@ -154,6 +154,60 @@ A continuación se muestran las evidencias visuales del funcionamiento del siste
 | Respuesta del servidor al cliente | ✅   |
 | Capturas generadas              | ✅     |
 
+# 🚦 Etapa 3: Mover los vehículos
+
+## ✅ Objetivo
+
+Simular el movimiento del vehículo por la carretera desde el cliente, enviando su estado actualizado al servidor hasta que termine su recorrido.
+
+---
+
+## ⚙️ Cambios realizados
+
+### 👨‍💻 Cliente
+
+- Se añade un bucle `while (v.Pos <= 100)` para simular el avance del vehículo.
+- Se actualiza `v.Pos++` y se hace `Thread.Sleep(v.Velocidad)` para controlar el ritmo.
+- Se actualiza `v.Acabado = true` al finalizar.
+- Se envía el objeto actualizado al servidor en cada iteración.
+
+### 🖥️ Servidor
+
+- Se crea un bucle que lee constantemente los datos del cliente.
+- Se actualiza el estado de la carretera usando `ActualizarVehiculo()`.
+- Se muestra el estado actualizado de la carretera por consola.
+- Se cierra la conexión cuando `v.Acabado == true`.
+
+---
+
+## ✅ Estado de la Etapa 3
+
+| Elemento                                | Estado |
+|-----------------------------------------|--------|
+| Bucle de movimiento en cliente          | ✅     |
+| Envío de datos a cada iteración         | ✅     |
+| Recepción continua en el servidor       | ✅     |
+| Actualización de carretera en servidor  | ✅     |
+| Visualización de estado de la carrera   | ✅     |
+
+---
+
+## 📸 Capturas de pantalla
+
+A continuación se muestran las evidencias del funcionamiento de esta etapa:
+
+1. Cliente crea y mueve vehículo
+   ![cliente_moviendo_vehiculo](./Ejercicio2/Capturas/cliente_moviendo_vehiculo.png)
+
+2. Servidor muestra actualizaciones recibidas
+   ![servidor_actualizando_estado](./Ejercicio2/Capturas/servidor_actualizando_estado.png)
+
+3. Cliente muestra final del recorrido
+   ![cliente_fin_recorrido](./Ejercicio2/Capturas/cliente_fin_recorrido.png)
+
+4. Servidor detecta vehículo finalizado
+   ![servidor_fin_recorrido](./Ejercicio2/Capturas/servidor_fin_recorrido.png)
+
 ---
 
 ## 🔗 Navegación

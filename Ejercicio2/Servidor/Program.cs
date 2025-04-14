@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Net;
 using System.Net.Sockets;
 using Program;
@@ -23,21 +23,25 @@ class ProgramServidor
 
             NetworkStream ns = cliente.GetStream();
 
-            // Leer Vehiculo del cliente
-            Vehiculo v = NetworkStreamClass.LeerDatosVehiculoNS(ns);
+            Vehiculo v;
 
-            if (v != null)
+            // Recibir actualizaciones hasta que el vehículo termine
+            while (true)
             {
-                Console.WriteLine($"🚗 Vehículo recibido: ID={v.Id}, Pos={v.Pos}, Dir={v.Direccion}");
-                carretera.AñadirVehiculo(v);
+                v = NetworkStreamClass.LeerDatosVehiculoNS(ns);
+                if (v == null) break;
+
+                carretera.ActualizarVehiculo(v);
+
+                Console.WriteLine($"🛠️ Actualización recibida: ID={v.Id}, Pos={v.Pos}, Acabado={v.Acabado}");
+                carretera.MostrarCarretera();
+
+                if (v.Acabado)
+                {
+                    Console.WriteLine($"✅ Vehículo {v.Id} ha finalizado su recorrido.");
+                    break;
+                }
             }
-
-            // Mostrar estado de la carretera
-            Console.WriteLine("🛣️ Estado de la carretera:");
-            carretera.MostrarCarretera();
-
-            // Enviar carretera al cliente como respuesta (opcional)
-            NetworkStreamClass.EscribirDatosCarreteraNS(ns, carretera);
 
             // Cerrar conexión con este cliente
             cliente.Close();
