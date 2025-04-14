@@ -85,6 +85,67 @@ Implementar los métodos que permiten **enviar y recibir objetos de tipo `Vehicu
 | Métodos de Carretera implementados    | ✅     |
 | Uso de Serialización/Deserialización  | ✅     |
 
+# 🛠️ Etapa 2: Crear y enviar los datos de un Vehiculo
+
+## ✅ Objetivo
+
+El cliente debe ser capaz de crear un objeto `Vehiculo`, enviarlo al servidor y recibir como respuesta la `Carretera` actualizada. El servidor debe recibir el vehículo, añadirlo a la carretera y devolver el estado actualizado.
+
+---
+
+## ⚙️ Cambios realizados
+
+### Cliente (`Program.cs`)
+
+- Se crea un objeto `Vehiculo` con datos como ID aleatorio y dirección (`"Norte"`).
+- Se envía el vehículo usando `EscribirDatosVehiculoNS()`.
+- Se recibe la carretera actualizada y se muestra por consola.
+
+### Servidor (`Program.cs`)
+
+- Escucha conexiones entrantes.
+- Lee el objeto `Vehiculo` desde el cliente.
+- Añade el vehículo a la `Carretera`.
+- Muestra el estado actual de la carretera por consola.
+- Devuelve la carretera al cliente.
+
+---
+
+## 📸 Capturas de pantalla
+
+A continuación se muestran las evidencias visuales del funcionamiento del sistema cliente-servidor:
+
+### 1. Cliente conectado al servidor
+![cliente_conectado](./capturas/cliente_conectado.png)
+
+### 2. Servidor esperando cliente
+![servidor_esperando_cliente](./capturas/servidor_esperando_cliente.png)
+
+### 3. Servidor recibe un vehículo
+![servidor_recibe_vehiculo](./capturas/servidor_recibe_vehiculo.png)
+
+### 4. Carretera mostrada por el servidor
+![carretera_mostrada_servidor](./capturas/carretera_mostrada_servidor.png)
+
+### 5. Carretera recibida por el cliente
+![carretera_mostrada_cliente](./capturas/carretera_mostrada_cliente.png)
+
+### 6. Cliente conectándose varias veces
+![cliente_multiple_conexiones](./capturas/cliente_multiple_conexiones.png)
+
+---
+
+## ✅ Estado de la Etapa 2
+
+| Elemento                        | Estado |
+|---------------------------------|--------|
+| Cliente crea vehículo           | ✅     |
+| Envío de datos al servidor      | ✅     |
+| Servidor añade vehículo         | ✅     |
+| Mostrar estado carretera        | ✅     |
+| Respuesta del servidor al cliente | ✅   |
+| Capturas generadas              | ✅     |
+
 ---
 
 ## 🔗 Navegación

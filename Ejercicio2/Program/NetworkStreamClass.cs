@@ -2,6 +2,9 @@ using System;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
+
+namespace Program;
 
 public static class NetworkStreamClass
 {
@@ -10,8 +13,8 @@ public static class NetworkStreamClass
     {
         try
         {
-            byte[] datos = C.Serializar(); // Convertimos Carretera a byte[]
-            NS.Write(datos, 0, datos.Length); // Enviamos por el stream
+            byte[] datos = C.SerializarCarretera();
+            NS.Write(datos, 0, datos.Length);
         }
         catch (Exception ex)
         {
@@ -28,12 +31,12 @@ public static class NetworkStreamClass
             int bytesLeidos = NS.Read(buffer, 0, buffer.Length);
             byte[] datosRecibidos = new byte[bytesLeidos];
             Array.Copy(buffer, datosRecibidos, bytesLeidos);
-            return Carretera.Deserializar(datosRecibidos);
+            return Carretera.DeserializarCarretera(datosRecibidos);
         }
         catch (Exception ex)
         {
             Console.WriteLine("❌ Error al leer datos de Carretera: " + ex.Message);
-            return null;
+            return null!;
         }
     }
 
@@ -42,7 +45,7 @@ public static class NetworkStreamClass
     {
         try
         {
-            byte[] datos = V.Serializar();
+            byte[] datos = V.SerializarVehiculo();
             NS.Write(datos, 0, datos.Length);
         }
         catch (Exception ex)
@@ -60,12 +63,12 @@ public static class NetworkStreamClass
             int bytesLeidos = NS.Read(buffer, 0, buffer.Length);
             byte[] datosRecibidos = new byte[bytesLeidos];
             Array.Copy(buffer, datosRecibidos, bytesLeidos);
-            return Vehiculo.Deserializar(datosRecibidos);
+            return Vehiculo.DeserializarVehiculo(datosRecibidos);
         }
         catch (Exception ex)
         {
             Console.WriteLine("❌ Error al leer datos de Vehiculo: " + ex.Message);
-            return null;
+            return null!;
         }
     }
 }

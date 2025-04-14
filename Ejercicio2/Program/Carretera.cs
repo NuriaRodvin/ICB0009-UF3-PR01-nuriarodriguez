@@ -1,3 +1,5 @@
+namespace Program;
+
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -16,7 +18,7 @@ public class Carretera
     public static Carretera DeserializarCarretera(byte[] datos)
     {
         string json = System.Text.Encoding.UTF8.GetString(datos);
-        return JsonSerializer.Deserialize<Carretera>(json);
+        return JsonSerializer.Deserialize<Carretera>(json)!;
     }
 
     public void AñadirVehiculo(Vehiculo v)
@@ -42,13 +44,13 @@ public class Carretera
         foreach (Vehiculo v in VehiculosEnCarretera)
         {
             string barra = GenerarBarra(v.Pos);
-            Console.WriteLine($"[{v.Direccion}] Vehículo #{v.Id}: {barra} (km {v.Pos} - {(v.Parado ? "Esperando" : (v.Acabado ? "Finalizado" : "Cruzando"))})");
+            Console.WriteLine($"[{v.Direccion}] Vehículo #{v.Id}: {barra} (km {v.Pos} - {(v.Parado ? "Esperando" : (v.Acabado ? "Finalizado" : "Circulando"))})");
         }
     }
 
     private string GenerarBarra(int posicion)
     {
         int bloques = posicion / 10;
-        return new string('█', bloques) + new string('▒', 10 - bloques);
+        return new string('|', bloques) + new string('.', 10 - bloques);
     }
 }
