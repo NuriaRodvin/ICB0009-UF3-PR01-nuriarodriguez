@@ -183,7 +183,48 @@ Obtener el `NetworkStream` tanto en el servidor como en el cliente después de e
 | Capturas añadidas             | ✅         |
 
 ---
+# 🧩 Etapa 5: Métodos de lectura y escritura con NetworkStream
 
+## 🚀 Objetivo
+
+Centralizar la lógica de envío y recepción de mensajes entre cliente y servidor a través de `NetworkStream`, usando una clase compartida.
+
+## 🧠 Conceptos aplicados
+
+- Programación de métodos genéricos reutilizables para leer y escribir datos.
+- Uso de codificación UTF-8.
+- Estructura modular: los métodos están en la clase `NetworkStreamClass` para que los usen tanto cliente como servidor.
+
+## 🧾 Métodos implementados
+
+- `EscribirMensajeNetworkStream(NetworkStream stream, string mensaje)`  
+  Envía un mensaje a través del stream.
+
+- `LeerMensajeNetworkStream(NetworkStream stream)`  
+  Lee un mensaje desde el stream y lo retorna como `string`.
+
+## 📁 Ubicación del archivo
+
+La clase está en la raíz del proyecto, compartida entre Cliente y Servidor:
+```
+Ejercicio1/
+└── Proyecto/
+    ├── Cliente/
+    ├── Servidor/
+    └── NetworkStreamClass.cs  ✅
+```
+
+---
+
+## ✅ Estado de la Etapa 5
+
+| Elemento                                     | Estado     |
+|----------------------------------------------|------------|
+| Métodos de escritura y lectura funcionales   | ✅         |
+| Clase reutilizable y accesible desde ambos   | ✅         |
+| Compilación sin errores                      | ✅         |
+
+---
 
 ## 🔗 Navegación
 
