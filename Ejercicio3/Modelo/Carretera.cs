@@ -1,4 +1,4 @@
-namespace Program;
+namespace Modelo;
 
 using System;
 using System.Collections.Generic;
@@ -6,9 +6,16 @@ using System.Text.Json;
 
 public class Carretera
 {
-    public List<Vehiculo> VehiculosEnCarretera { get; set; } = new List<Vehiculo>();
+    public List<Vehiculo> VehiculosEnCarretera { get; set; } = new();
     public int NumVehiculosEnCarrera { get; set; } = 0;
+
     public Vehiculo? VehiculoEnPuente { get; set; } = null;
+
+    // BONUS: Colas por dirección
+    public Queue<Vehiculo> ColaNorte { get; set; } = new();
+    public Queue<Vehiculo> ColaSur { get; set; } = new();
+
+    public string TurnoActual { get; set; } = "Norte"; // Empieza Norte
 
     public byte[] SerializarCarretera()
     {
@@ -26,6 +33,11 @@ public class Carretera
     {
         VehiculosEnCarretera.Add(v);
         NumVehiculosEnCarrera++;
+
+        if (v.Direccion == "Norte")
+            ColaNorte.Enqueue(v);
+        else
+            ColaSur.Enqueue(v);
     }
 
     public void ActualizarVehiculo(Vehiculo v)

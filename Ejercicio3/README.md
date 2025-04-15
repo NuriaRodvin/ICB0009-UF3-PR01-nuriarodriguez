@@ -115,14 +115,21 @@ Actualmente, la variable `VehiculoEnPuente` actúa como **semáforo simple**.
 
 ---
 
-## 🎁 Bonus (opcional)
+## 🎁 BONUS Extra - Turnos alternos entre direcciones
 
-Si quieres mejorar aún más el proyecto puedes:
+Se ha añadido una mejora opcional que **alterna los turnos de cruce** entre vehículos del Norte y del Sur para garantizar equidad.
 
-- 💅 Añadir una interfaz gráfica o colores en consola.
-- 🔁 Implementar **turnos alternos** entre Norte y Sur.
-- 🧠 Usar colas reales para futuras expansiones.
-- 🗃️ Crear una tabla comparativa entre cliente y servidor:
+### ✅ Captura de prueba de los turnos alternos:
+
+| Descripción                               | Imagen                                                    |
+|-------------------------------------------|-----------------------------------------------------------|
+| 🚦 Turnos alternos detectados por el servidor | ![](./Capturas/servidor_bonus_turnos.png)                |
+
+Esta lógica garantiza que no se bloquee indefinidamente una de las direcciones.
+
+---
+
+## 🗃️ Comparativa Cliente vs Servidor
 
 | Característica        | Cliente                              | Servidor                                 |
 |-----------------------|---------------------------------------|------------------------------------------|
@@ -132,7 +139,6 @@ Si quieres mejorar aún más el proyecto puedes:
 | Escalabilidad         | ❌ Complicado                         | ✅ Sencilla                               |
 
 ---
-
 ## 📁 Navegación
 [⬅️ Volver al README principal](../README.md)
 

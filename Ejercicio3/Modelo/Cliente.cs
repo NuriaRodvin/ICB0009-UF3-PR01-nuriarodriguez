@@ -1,4 +1,5 @@
-namespace Program;
+namespace Modelo;
+
 
 using System.Net.Sockets;
 

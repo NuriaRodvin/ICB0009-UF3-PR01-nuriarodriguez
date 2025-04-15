@@ -1,8 +1,7 @@
 using System;
 using System.Net.Sockets;
 using System.Threading;
-using Program;
-
+using Modelo;
 
 namespace Cliente;
 
@@ -14,14 +13,17 @@ class Program
         NetworkStream ns = cliente.GetStream();
 
         Random rnd = new();
+        string[] direcciones = { "Norte", "Sur" };
+        string direccionAleatoria = direcciones[rnd.Next(direcciones.Length)];
+
         Vehiculo v = new()
         {
             Id = rnd.Next(100000, 999999),
             Velocidad = rnd.Next(100, 300),
-            Direccion = "Norte"
+            Direccion = direccionAleatoria
         };
 
-        Console.WriteLine($"🚗 Vehículo creado: ID={v.Id}, Velocidad={v.Velocidad}");
+        Console.WriteLine($"🚗 Vehículo creado: ID={v.Id}, Velocidad={v.Velocidad}, Dirección={v.Direccion}");
 
         // Enviar vehículo inicial al servidor
         NetworkStreamClass.EscribirDatosVehiculoNS(ns, v);

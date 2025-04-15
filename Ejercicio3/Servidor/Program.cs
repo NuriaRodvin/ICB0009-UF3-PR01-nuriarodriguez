@@ -1,9 +1,6 @@
-using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Collections.Generic;
-using System.Threading;
-using Program;
+using Modelo;
 
 namespace Servidor;
 
@@ -37,27 +34,47 @@ class Program
                 while (!v.Acabado)
                 {
                     Vehiculo actualizado = NetworkStreamClass.LeerDatosVehiculoNS(ns);
-                    carretera.ActualizarVehiculo(actualizado);
+                    bool puedeCruzar = false;
 
-                    // Lógica del puente
-                    if (carretera.VehiculoEnPuente == null || carretera.VehiculoEnPuente.Id == actualizado.Id)
+                    lock (carretera)
                     {
-                        carretera.VehiculoEnPuente = actualizado;
-                        actualizado.Parado = false;
-                    }
-                    else
-                    {
-                        actualizado.Parado = true;
+                        // Si el puente está libre
+                        if (carretera.VehiculoEnPuente == null)
+                        {
+                            // Turno y dirección coinciden + es primero en su cola
+                            if (actualizado.Direccion == carretera.TurnoActual)
+                            {
+                                var cola = (actualizado.Direccion == "Norte") ? carretera.ColaNorte : carretera.ColaSur;
+                                if (cola.Count > 0 && cola.Peek().Id == actualizado.Id)
+                                {
+                                    carretera.VehiculoEnPuente = actualizado;
+                                    puedeCruzar = true;
+                                    cola.Dequeue();
+                                }
+                            }
+                        }
+                        else if (carretera.VehiculoEnPuente.Id == actualizado.Id)
+                        {
+                            puedeCruzar = true;
+                        }
+
+                        actualizado.Parado = !puedeCruzar;
+
+                        if (actualizado.Pos >= 100 && actualizado.Acabado)
+                        {
+                            carretera.VehiculoEnPuente = null;
+
+                            // Cambiar turno
+                            carretera.TurnoActual = carretera.TurnoActual == "Norte" ? "Sur" : "Norte";
+                        }
+
+                        carretera.ActualizarVehiculo(actualizado);
+                        carretera.MostrarCarretera();
                     }
 
-                    if (actualizado.Pos >= 100 && actualizado.Acabado)
-                    {
-                        carretera.VehiculoEnPuente = null;
-                    }
-
-                    carretera.ActualizarVehiculo(actualizado);
-                    carretera.MostrarCarretera();
                     EnviarCarreteraATodos();
+
+                    Thread.Sleep(50);
                 }
 
                 lock (clientesConectados) clientesConectados.RemoveAll(c => c.Id == v.Id);
